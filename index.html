@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Viewer</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        #image-container {
+            width: 80%;
+            max-width: 600px;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border: 2px solid #ccc;
+            background-color: #fff;
+        }
+        #image-container img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        #controls {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div id="image-container">
+        <img id="current-image" src="" alt="Loading...">
+    </div>
+    <div id="controls">
+        <button id="next-button">Next Image</button>
+    </div>
+
+    <script>
+        const imageUrls = [
+            "https://images.unsplash.com/photo-1516117172878-fd2c41f4a759?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600",
+            "https://images.unsplash.com/photo-1532009324734-20a7a5813719?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600",
+            "https://images.unsplash.com/photo-1524429656589-6633a470097c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600",
+            "https://images.unsplash.com/photo-1507143550189-fed454f93097?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600",
+            "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600",
+            "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600",
+            "https://images.unsplash.com/photo-1519985176271-adb1088fa94c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600",
+            "https://images.unsplash.com/photo-1481277542470-605612bd2d61?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600",
+            "https://images.unsplash.com/photo-1533689472750-9b8b481f40cf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600",
+            "https://images.unsplash.com/photo-1547721064-da6cfb341d50?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600"
+        ];
+
+        let currentIndex = 0;
+        const imageElement = document.getElementById('current-image');
+        const nextButton = document.getElementById('next-button');
+
+        function loadNextImage() {
+            currentIndex++;
+            if (currentIndex < imageUrls.length) {
+                imageElement.src = imageUrls[currentIndex];
+            }
+            if (currentIndex === imageUrls.length - 1) {
+                nextButton.style.display = 'none';
+            }
+        }
+
+        nextButton.addEventListener('click', loadNextImage);
+
+        // Load the first image initially
+        imageElement.src = imageUrls[currentIndex];
+    </script>
+</body>
+</html>
