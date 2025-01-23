@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Viewer</title>
+    <title>Image Viewer with Login</title>
     <style>
         body {
             display: flex;
@@ -14,6 +14,31 @@
             margin: 0;
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
+        }
+        #login-container, #image-section {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+        #login-container {
+            display: flex;
+        }
+        input {
+            margin: 5px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
         }
         #image-container {
             width: 80%;
@@ -33,29 +58,31 @@
         #controls {
             margin-top: 20px;
         }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            background-color: #007BFF;
-            color: white;
-            border-radius: 5px;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
     </style>
 </head>
 <body>
-    <div id="image-container">
-        <img id="current-image" src="" alt="Loading...">
+    <div id="login-container">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button id="login-button">Login</button>
     </div>
-    <div id="controls">
-        <button id="next-button">Next Image</button>
+
+    <div id="image-section">
+        <button id="show-images-button">Show Images</button>
+        <div id="image-container">
+            <img id="current-image" src="" alt="Loading...">
+        </div>
+        <div id="controls">
+            <button id="next-button">Next Image</button>
+        </div>
     </div>
 
     <script>
+        const loginContainer = document.getElementById('login-container');
+        const imageSection = document.getElementById('image-section');
+        const loginButton = document.getElementById('login-button');
+        const showImagesButton = document.getElementById('show-images-button');
         const imageUrls = [
             "https://images.unsplash.com/photo-1516117172878-fd2c41f4a759?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600",
             "https://images.unsplash.com/photo-1532009324734-20a7a5813719?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=600",
@@ -73,6 +100,19 @@
         const imageElement = document.getElementById('current-image');
         const nextButton = document.getElementById('next-button');
 
+        loginButton.addEventListener('click', () => {
+            // Fake login logic (no validation here)
+            loginContainer.style.display = 'none';
+            imageSection.style.display = 'flex';
+        });
+
+        showImagesButton.addEventListener('click', () => {
+            showImagesButton.style.display = 'none';
+            document.getElementById('image-container').style.display = 'flex';
+            document.getElementById('controls').style.display = 'block';
+            imageElement.src = imageUrls[currentIndex];
+        });
+
         function loadNextImage() {
             currentIndex++;
             if (currentIndex < imageUrls.length) {
@@ -84,9 +124,6 @@
         }
 
         nextButton.addEventListener('click', loadNextImage);
-
-        // Load the first image initially
-        imageElement.src = imageUrls[currentIndex];
     </script>
 </body>
 </html>
